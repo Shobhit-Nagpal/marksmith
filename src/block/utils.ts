@@ -19,7 +19,8 @@ export enum Block {
 }
 
 export function createHTMLHeading(block: string) {
-  const content = block.split(" ", 1);
+  const parts = block.split(" ");
+  const content = [parts[0], parts.slice(1).join(" ")];
   const headingNumber = content[0].length;
 
   const textNodes = textToTextNodes(content[1]);
@@ -37,7 +38,7 @@ export function createHTMLHeading(block: string) {
     headingValue += leafHTML;
   }
 
-  return `<h${headingNumber}>${headingValue}</${headingNumber}>`;
+  return `<h${headingNumber}>${headingValue}</h${headingNumber}>`;
 }
 
 export function createHTMLParagraph(block: string) {
@@ -64,7 +65,7 @@ export function createHTMLQuote(block: string) {
   const quoteBlocks = new Array<string>();
 
   for (const quote of content) {
-    quoteBlocks.push(quote.split(">", 1)[1]);
+    quoteBlocks.push(quote.split("> ")[1]);
   }
 
   let quote = "";
@@ -82,7 +83,7 @@ export function createHTMLQuote(block: string) {
 
     for (const leafNode of leafNodes) {
       const leafHTML = leafNode.toHTML();
-      quoteValue += leafHTML + "\n";
+      quoteValue += leafHTML;
     }
 
     quote += quoteValue;
@@ -92,22 +93,8 @@ export function createHTMLQuote(block: string) {
 }
 
 export function createHTMLCode(block: string) {
-  const textNodes = textToTextNodes(block);
-  const leafNodes = new Array<HTMLLeafNode>();
-
-  for (const textNode of textNodes) {
-    const leafNode = textNodeToHTMLNode(textNode);
-    leafNodes.push(leafNode);
-  }
-
-  let codeValue = "";
-
-  for (const leafNode of leafNodes) {
-    const leafHTML = leafNode.toHTML();
-    codeValue += leafHTML;
-  }
-
-  return `<pre>${codeValue}</pre>`;
+  const codeValue = block.slice(3,-3);
+  return `<pre><code>${codeValue}</code></pre>`;
 }
 
 export function createHTMLOrderedList(block: string) {
@@ -115,7 +102,8 @@ export function createHTMLOrderedList(block: string) {
   let listItems = "";
 
   for (const item of items) {
-    const content = item.split(" ", 1);
+    const parts = item.split(" ");
+    const content = [parts[0], parts.slice(1).join(" ")]
     let listValue = "";
 
     const textNodes = textToTextNodes(content[1]);
@@ -131,7 +119,7 @@ export function createHTMLOrderedList(block: string) {
       listValue += leafHTML;
     }
 
-    listItems += listValue;
+    listItems += `<li>${listValue}</li>`;
   }
 
   return `<ol>${listItems}</ol>`;
@@ -142,7 +130,8 @@ export function createHTMLUnorderedList(block: string) {
   let listItems = "";
 
   for (const item of items) {
-    const content = item.split(" ", 1);
+    const parts = item.split(" ");
+    const content = [parts[0], parts.slice(1).join(" ")]
     let listValue = "";
 
     const textNodes = textToTextNodes(content[1]);
@@ -158,7 +147,7 @@ export function createHTMLUnorderedList(block: string) {
       listValue += leafHTML;
     }
 
-    listItems += listValue;
+    listItems += `<li>${listValue}</li>`;
   }
 
   return `<ul>${listItems}</ul>`;
@@ -180,26 +169,25 @@ export function createHTMLTable(block: string) {
 
   let headers = "";
   for (const tableHeader of tableHeaders) {
-    const tableHeading = createHTMLHeading(`### ${tableHeader.trim()}`)
+    const tableHeading = createHTMLHeading(`### ${tableHeader.trim()}`);
     headers += `<th>${tableHeading}</th>`;
   }
 
   tableItems += `<tr>${headers}</tr>`;
 
-  items = items.slice(1)
+  items = items.slice(1);
 
   for (const tableRow of items) {
     let tableData = tableRow.split("|");
-    tableData = tableData.slice(1,-1);
+    tableData = tableData.slice(1, -1);
     let td = "";
 
     for (const data of tableData) {
-      const tableDataItem = createHTMLParagraph(data.trim())
-      td += tableDataItem;
+      const tableDataItem = createHTMLParagraph(data.trim());
+      td += `<td>${tableDataItem}</td>`;
     }
 
-    tableItems += `<tr>${td}</tr>`
-
+    tableItems += `<tr>${td}</tr>`;
   }
 
   return `<table>${tableItems}</table>`;

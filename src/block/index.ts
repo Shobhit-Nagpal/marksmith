@@ -59,24 +59,31 @@ export function markdownToHTMLNode(markdown: string) {
       case Block.HEADING:
         const heading = createHTMLHeading(block);
         html += heading;
+        break;
       case Block.PARAGRAPH:
         const paragraph = createHTMLParagraph(block);
         html += paragraph;
+        break;
       case Block.CODE:
         const code = createHTMLCode(block);
         html += code;
+        break;
       case Block.QUOTE:
         const quote = createHTMLQuote(block);
         html += quote;
+        break;
       case Block.UNORDERED_LIST:
         const ul = createHTMLUnorderedList(block);
         html += ul;
+        break;
       case Block.ORDERED_LIST:
         const ol = createHTMLOrderedList(block);
         html += ol;
+        break;
       case Block.TABLE:
         const table = createHTMLTable(block);
         html += table;
+        break;
       default:
         throw new Error("Block type not recognized");
     }
