@@ -1,6 +1,6 @@
 {
   "name": "@shobhit-nagpal/marksmith",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A library to convert markdown to HTML.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
