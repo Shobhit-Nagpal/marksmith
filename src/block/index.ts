@@ -1,1 +1,87 @@
-console.log("block");
+import {
+  Block,
+  headingRe,
+  quoteRe,
+  ulRe,
+  olRe,
+  tableRe,
+  codeRe,
+  createHTMLHeading,
+  createHTMLParagraph,
+  createHTMLTable,
+  createHTMLCode,
+  createHTMLQuote,
+  createHTMLOrderedList,
+  createHTMLUnorderedList,
+} from "./utils";
+
+export function markdownToBlocks(markdown: string) {
+  const blocks = new Array<string>();
+  const mdBlocks = markdown.split("\n\n");
+
+  for (let mdBlock of mdBlocks) {
+    if (mdBlock !== "") {
+      mdBlock = mdBlock.trim();
+      blocks.push(mdBlock);
+    }
+  }
+
+  return blocks;
+}
+
+export function blockToBlockType(block: string) {
+  if (headingRe.test(block)) {
+    return Block.HEADING;
+  } else if (quoteRe.test(block)) {
+    return Block.QUOTE;
+  } else if (ulRe.test(block)) {
+    return Block.UNORDERED_LIST;
+  } else if (olRe.test(block)) {
+    return Block.ORDERED_LIST;
+  } else if (codeRe.test(block)) {
+    return Block.CODE;
+  } else if (tableRe.test(block)) {
+    return Block.TABLE;
+  } else {
+    return Block.PARAGRAPH;
+  }
+}
+
+export function markdownToHTMLNode(markdown: string) {
+  let html = "<div>";
+
+  const blocks = markdownToBlocks(markdown);
+
+  for (const block of blocks) {
+    const blockType = blockToBlockType(block);
+
+    switch (blockType) {
+      case Block.HEADING:
+        const heading = createHTMLHeading(block);
+        html += heading;
+      case Block.PARAGRAPH:
+        const paragraph = createHTMLParagraph(block);
+        html += paragraph;
+      case Block.CODE:
+        const code = createHTMLCode(block);
+        html += code;
+      case Block.QUOTE:
+        const quote = createHTMLQuote(block);
+        html += quote;
+      case Block.UNORDERED_LIST:
+        const ul = createHTMLUnorderedList(block);
+        html += ul;
+      case Block.ORDERED_LIST:
+        const ol = createHTMLOrderedList(block);
+        html += ol;
+      case Block.TABLE:
+        const table = createHTMLTable(block);
+        html += table;
+      default:
+        throw new Error("Block type not recognized");
+    }
+  }
+
+  html += "</div>";
+  return html;
+}
