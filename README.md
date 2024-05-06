@@ -13,13 +13,13 @@
 You can install **Marksmith** via npm:
 
 ```bash
-npm install marksmith
+npm i @shobhit-nagpal/marksmith
 ```
 
 ## Usage
 
 ```typescript
-import { markdownToHtml } from 'marksmith';
+import { markdownToHtml } from '@shobhit-nagpal/marksmith';
 
 const markdownText = '# Hello, World!\n\nThis is a *Markdown* example.';
 const htmlOutput = markdownToHtml(markdownText);
