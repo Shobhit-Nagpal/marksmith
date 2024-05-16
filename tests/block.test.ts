@@ -125,3 +125,11 @@ test("block to table block type", () => {
 
   expect(blockType).toBe(Block.TABLE);
 });
+
+test("block to hr block type", () => {
+  const text = "---";
+
+  const blockType = blockToBlockType(text);
+
+  expect(blockType).toBe(Block.HR);
+});

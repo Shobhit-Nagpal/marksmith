@@ -13,6 +13,8 @@ const markdownText = `
 
 This is a paragraph of text in **Markdown** format. You can use various formatting options such as **bold**, *italic*, and \`code\`.
 
+---
+
 ## Lists
 
 - Item 1
@@ -29,7 +31,7 @@ This is a paragraph of text in **Markdown** format. You can use various formatti
 
 Here's a [link to Google](https://www.google.com/) and an ![image of a cat](https://via.placeholder.com/150).
 `;
-  const expectedHTML = "<div><h1>My Markdown Document</h1><p>This is a paragraph of text in <b>Markdown</b> format. You can use various formatting options such as <b>bold</b>, <i>italic</i>, and <code>code</code>.</p><h2>Lists</h2><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><ol><li>First item</li><li>Second item</li><li>Third item</li></ol><h2>Code Block</h2><h2>Links and Images</h2><p>Here's a <a href='https://www.google.com/'>link to Google</a> and an <img alt='image of a cat' src='https://via.placeholder.com/150'></img>.</p></div>"
+  const expectedHTML = "<div><h1>My Markdown Document</h1><p>This is a paragraph of text in <b>Markdown</b> format. You can use various formatting options such as <b>bold</b>, <i>italic</i>, and <code>code</code>.</p><hr></hr><h2>Lists</h2><ul><li>Item 1</li><li>Item 2</li><li>Item 3</li></ul><ol><li>First item</li><li>Second item</li><li>Third item</li></ol><h2>Code Block</h2><h2>Links and Images</h2><p>Here's a <a href='https://www.google.com/'>link to Google</a> and an <img alt='image of a cat' src='https://via.placeholder.com/150'></img>.</p></div>"
   const html = markdownToHtml(markdownText);
   expect(html).toBe(expectedHTML);
 });

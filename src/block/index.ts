@@ -13,6 +13,8 @@ import {
   createHTMLQuote,
   createHTMLOrderedList,
   createHTMLUnorderedList,
+  hrRe,
+  createHTMLHr,
 } from "./utils";
 
 export function markdownToBlocks(markdown: string) {
@@ -42,6 +44,8 @@ export function blockToBlockType(block: string) {
     return Block.CODE;
   } else if (tableRe.test(block)) {
     return Block.TABLE;
+  } else if (hrRe.test(block)) {
+    return Block.HR;
   } else {
     return Block.PARAGRAPH;
   }
@@ -83,6 +87,10 @@ export function markdownToHTMLNode(markdown: string) {
       case Block.TABLE:
         const table = createHTMLTable(block);
         html += table;
+        break;
+      case Block.HR:
+        const hr = createHTMLHr();
+        html += hr;
         break;
       default:
         throw new Error("Block type not recognized");

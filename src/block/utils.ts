@@ -7,6 +7,7 @@ export const ulRe = /^([*-]\s.*\n?)+$/gm;
 export const olRe = /^((?:1|[2-9]\d*)\.\s.*\n?)+$/gm;
 export const codeRe = /^```[\s\S]*?```$/m;
 export const tableRe = /^\|\s.*?\s\|\s.*?\s\|$/gm;
+export const hrRe = /^---$/g;
 
 export enum Block {
   HEADING = "heading",
@@ -16,6 +17,7 @@ export enum Block {
   UNORDERED_LIST = "unordered_list",
   ORDERED_LIST = "ordered_list",
   TABLE = "table",
+  HR = "hr",
 }
 
 export function createHTMLHeading(block: string) {
@@ -191,4 +193,8 @@ export function createHTMLTable(block: string) {
   }
 
   return `<table>${tableItems}</table>`;
+}
+
+export function createHTMLHr() {
+  return "<hr></hr>"
 }
