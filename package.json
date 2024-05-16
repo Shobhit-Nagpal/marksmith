@@ -1,7 +1,16 @@
 {
   "name": "marksmithjs",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A library to convert markdown to HTML.",
+  "keywords": [
+    "markdown",
+    "html",
+    "markdown-to-html",
+    "markdown-parser",
+    "html-converter",
+    "text-processing",
+    "document-conversion"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
