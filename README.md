@@ -17,7 +17,7 @@ Note: Currently, there's only one level of parsing of bold, italic, code tags. N
 - Headings (`#`, `##`, `###`, etc.)
 - Bold (`**text**`)
 - Italic (`*text*`)
-- Code (`\`code\``)
+- Code (`\\`code\``)
 - Links (`[text](url)`)
 - Images (`![alt text](url)`)
 - Lists (both ordered and unordered)
